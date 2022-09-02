@@ -6,9 +6,12 @@ export const userSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  user: {
+  username: {
     type: String,
     required: true
+  },
+  photo: {
+    type: Buffer,
   },
   isAdmin: {
     type: Boolean,
@@ -17,11 +20,12 @@ export const userSchema = mongoose.Schema({
 
 const User = mongoose.model('User', userSchema)
 
-export const validateUser = (user) =>{
+export const validateUser = (user) => {
   const JoiSchema = new Joi.object({
     name: Joi.string.min(5).required(),
-    user: Joi.string.min(5).required(),
-    isAdmin: Joi.boolean.required()
+    username: Joi.string.min(5).required(),
+    isAdmin: Joi.boolean.required(),
+    photo: Joi.image()
   })
   return JoiSchema.validate(user)
 }
