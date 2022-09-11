@@ -6,14 +6,15 @@ import { handlePostRegister } from "./postRegister";
 export const RegisterCard = () => {
 
   const handleSubmit = () => {
-    handlePostRegister(name, lname, email, pass)
+    handlePostRegister(name, lname, email, pass, user)
     setName('')
     setLname('')
     setEmail('')
     setPass('')
+    setUser('')
 
   }
-
+  const [user, setUser] = useState('')
   const [name, setName] = useState('')
   const [lname, setLname] = useState('')
   const [email, setEmail] = useState('')
@@ -39,10 +40,17 @@ export const RegisterCard = () => {
           /><br/>
           <input 
           className="inputSec" 
-          placeholder="Email" 
+          placeholder="Username" 
           value={email}
-          onChange = {e => setEmail(e.target.value)}
+          onChange = {e => setUser(e.target.value)}
           /><br/>
+          <input
+          className="inputSec"
+          placeholder="Email"
+          type="text"
+          value={user}
+          onChange={e => setEmail(e.target.value)}
+          />
           <input 
           className="inputSec" 
           placeholder="Password" 

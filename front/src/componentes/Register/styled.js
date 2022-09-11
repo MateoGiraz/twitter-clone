@@ -30,7 +30,7 @@ export const CardStyle = styled.div`
 
 .formDiv{
   width: 500px;
-  height: 400px;
+  height: 430px;
   border-radius: 10px;
   background: black;
   padding: 10px;
@@ -99,5 +99,44 @@ export const CardStyle = styled.div`
   margin-left: 0px;
   font-family: "Arial black";
   font-weight: light;
+
 }
+
+@media only screen and (max-width: 500px) {
+  .mainDiv{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    height: 100vh;
+    margin: 0px;
+    height: 1500px;
+    background: black;
+    overflow-y: hidden;
+  }
+
+  .formDiv{
+    position: absolute;
+    top: 120px;
+    display: block;
+    bottom: 0px;
+    margin: 0px;
+  }
+
+  .inputSec{
+    width: 320px;
+    
+  }
+  .input{
+    width: 320px;
+  }
+
+  .inputSubmit{
+    width: 300px;
+
+  }
+
+}
+
 `;

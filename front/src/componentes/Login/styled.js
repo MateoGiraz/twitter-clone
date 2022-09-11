@@ -12,6 +12,7 @@ export const CardStyle = styled.div`
   border-width: 1.5px;
   background: black;
   color: white;
+
 }
 
 .inputSec{
@@ -99,5 +100,40 @@ export const CardStyle = styled.div`
   margin-left: 0px;
   font-family: "Arial black";
   font-weight: light;
+}
+
+@media only screen and (max-width: 500px) {
+  .mainDiv{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    height: 100vh;
+    margin: 0px;
+    height: 1000px;
+    background: black;
+    overflow-y: hidden;
+  }
+
+  .formDiv{
+    position: absolute;
+    top: 150px;
+    display: block;
+    bottom: 0px;
+    margin: 0px;
+  }
+
+  .inputSec{
+    width: 320px;
+    
+  }
+
+  .inputSubmit{
+    width: 300px;
+
+  }
+
+
 }
 `;

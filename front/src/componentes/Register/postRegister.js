@@ -1,10 +1,10 @@
 import axios from 'axios'
 import { validateUser } from "./validate";
 
-export const handlePostRegister = (name, lname, email, pass) => {
+export const handlePostRegister = (name, lname, email, pass, username) => {
   const user = {
     'name': name,
-    'username': lname,
+    'username': username,
     'photo': 'photo',
     'isAdmin': false,
     'email': email,

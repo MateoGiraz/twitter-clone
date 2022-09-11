@@ -6,6 +6,7 @@ export const Contenedor = styled.div`
   padding-right: 10px;
   flex-direction: column;
   flex: 0.5;
+  overflow-x: hidden;
   overflow-y: scroll;
   border: 1px solid #eff3f4;
 
