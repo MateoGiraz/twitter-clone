@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import { application, Router } from 'express'
 import asyncMiddleware from '../middleware/async.js'
 import isAdmin from '../middleware/isAdmin.js'
 import User from '../models/user.js'
@@ -20,9 +20,9 @@ userRouter.get(
 )
 
 userRouter.get(
-  '/:id',
+  '/:user',
   asyncMiddleware(async (req, res) => {
-    const users = await User.find({_id: req.params.id })
+    const users = await User.find({user: req.params.user })
     res.send(users)
   })
 )
@@ -32,14 +32,17 @@ userRouter.post(
   asyncMiddleware(async (req, res) => {
     const { error } = validateUser(req.body)
     if(error) return res.status(400).send(error)
-
-    const {username, name, photo, isAdmin} = req.params
-
+  
+    const {username, name, photo, isAdmin, email, lname, pass} = req.body
+  
     const user = new User({
       username: username,
       name: name,
       photo: photo,
-      isAdmin: isAdmin
+      isAdmin: isAdmin,
+      email: email,
+      lname: lname,
+      pass: pass
     })
 
     const result = await user.save()
@@ -53,14 +56,18 @@ userRouter.put(
     const { error } = validateUser(req.body)
     if(error) return res.status(400).send(error)
 
-    const {id, username, name, photo, isAdmin} = req.params
+    const {username, name, photo, isAdmin, email, lname, pass} = req.body
+
     const user = User.findById(id)
 
     user.set({
       username: username,
       name: name,
       photo: photo,
-      isAdmin: isAdmin
+      isAdmin: isAdmin,
+      email: email,
+      lname: lname,
+      pass: pass
     })
 
     const result = await user.save()

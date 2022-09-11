@@ -7,7 +7,7 @@ export const tweetSchema = new mongoose.Schema({
     required: true
   },
   image: {
-    type: Buffer
+    type: String
   }
 })
 
@@ -15,8 +15,8 @@ const Tweet = mongoose.model('Tweet', tweetSchema)
 
 export const validateTweet = (tweet) => {
   const JoiSchema = new Joi.object({
-    data: Joi.string.min(5).max(200).required(),
-    image: Joi.image()
+    data: Joi.string().min(5).max(200).required(),
+    image: Joi.string()
   })
   return JoiSchema.validate(tweet)
 }

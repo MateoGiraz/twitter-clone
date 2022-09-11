@@ -28,7 +28,7 @@ tweetRouter.post(
     const { error } = validateTweet(req.body)
     if(error) return res.status(400).send(error)
 
-    const {data, image} = req.params
+    const {data, image} = req.body
 
     const tweet = new User({
       data: data,

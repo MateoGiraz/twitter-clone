@@ -30,7 +30,7 @@ export const CardStyle = styled.div`
 
 .formDiv{
   width: 500px;
-  height: 37  0px;
+  height: 400px;
   border-radius: 10px;
   background: black;
   padding: 10px;
@@ -77,8 +77,8 @@ export const CardStyle = styled.div`
   font-size: 15px;
   padding: 5px;
   width: 425px;
-  height: 40px;
-  margin: 30px 15px 5px 0px;
+  height: 35px;
+  margin: 15px 15px 5px 0px;
   border-width: 1.5px;
   color: black;
   transition: all .05s ease-in-out;
@@ -86,7 +86,7 @@ export const CardStyle = styled.div`
 
 .inputSubmit:hover{
   cursor: pointer;
-  background: rgb(239,243,244);
+  transform: scale(1.03);
 }
 
 .ref:hover{

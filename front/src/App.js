@@ -1,7 +1,8 @@
 import React from 'react';
 import {Route, BrowserRouter, Routes} from "react-router-dom"
 import MainPage from './componentes/MainPage';
-import { LoginCard } from './componentes/Login/LoginCard';
+import { RegisterCard } from './componentes/Register/RegisterCard';
+import { LoginCard } from './componentes/Login/LoginCard'; 
 
 function App() {
 
@@ -10,11 +11,12 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path="/" element = {<MainPage/>}/>
+        <Route path="/register" element = {<RegisterCard/>}/>
         <Route path="/login" element = {<LoginCard/>}/>
       </Routes>
       </BrowserRouter>
     </div>
-  );
+  ); 
 }
 
 export default App;
