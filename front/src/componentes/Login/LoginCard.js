@@ -2,17 +2,35 @@ import { CardStyle } from "./styled";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { useState } from "react";
 import { handleLogIn } from "./LoginHandle";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-export const LoginCard = (props) => {
-  const [user, setUser] = useState('');
+export const LoginCard = () => {
+  const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
+  const [errMess, setErrMess] = useState()
+  const [logged, setLogged] = useState(false)
+  const navigate = useNavigate()
 
   const handler = () => {
-    handleLogIn(user, pass)
-    setUser('')
+    handleLogIn(email, pass, setErrMess, setLogged)
+    setEmail('')
     setPass('')
 
   }
+
+  useEffect(() => { 
+    if(errMess){
+      setTimeout(() => {
+        setErrMess(false)
+      }, 3000)
+    }  
+    if(logged) {
+      navigate('')
+      console.log('in')
+      setLogged(false)
+    }
+  })
 
   return (
     <CardStyle>
@@ -25,8 +43,8 @@ export const LoginCard = (props) => {
               className="inputSec"
               placeholder="Email"
               type="text"
-              value={user}
-              onChange={e => setUser(e.target.value)}
+              value={email}
+              onChange={e => setEmail(e.target.value)}
             />
             <br/>
             <input
@@ -48,6 +66,7 @@ export const LoginCard = (props) => {
             Don't have an account yet? <a href="">Sing up to Twitter!</a>
           </div>
         </div>
+        {errMess ? <div className='errMess'>Incorrect email or password</div> : null}
       </div>
     </CardStyle>
   );

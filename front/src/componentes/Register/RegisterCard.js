@@ -41,14 +41,14 @@ export const RegisterCard = () => {
           <input 
           className="inputSec" 
           placeholder="Username" 
-          value={email}
+          value={user}
           onChange = {e => setUser(e.target.value)}
           /><br/>
           <input
           className="inputSec"
           placeholder="Email"
           type="text"
-          value={user}
+          value={email}
           onChange={e => setEmail(e.target.value)}
           />
           <input 

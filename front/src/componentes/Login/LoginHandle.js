@@ -1,14 +1,18 @@
 import axios from 'axios'
 
-export const handleLogIn = (user, pass) => {
+export const handleLogIn = (user, pass, setErrMess, setLogged) => {
 
   axios.get(`http://localhost:2000/users`)
-  .catch(e => {console.log(e)})
+  .catch(e => setErrMess(true))
   .then(e => {
     const usersArr = e.data;
-    const toCheckUser = usersArr.find(elem => elem.username == user)
-    if(!toCheckUser) return
-    if(toCheckUser.pass == pass) console.log('ok')
-    else console.log('not ok')
+    const toCheckUser = usersArr.find(elem => elem.username === user)
+    if(!toCheckUser || toCheckUser.pass !== pass){
+      setErrMess(true)
+      setLogged(false)
+      return
+    }
+    setErrMess(false)
+    setLogged(true)
   })
 }
