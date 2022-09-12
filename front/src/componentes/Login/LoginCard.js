@@ -3,20 +3,18 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import { useState } from "react";
 import { handleLogIn } from "./LoginHandle";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 
 export const LoginCard = () => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [errMess, setErrMess] = useState()
   const [logged, setLogged] = useState(false)
-  const navigate = useNavigate()
 
   const handler = () => {
     handleLogIn(email, pass, setErrMess, setLogged)
     setEmail('')
     setPass('')
-
   }
 
   useEffect(() => { 
@@ -25,14 +23,10 @@ export const LoginCard = () => {
         setErrMess(false)
       }, 3000)
     }  
-    if(logged) {
-      navigate('')
-      console.log('in')
-      setLogged(false)
-    }
   })
-
+ 
   return (
+    !logged ?
     <CardStyle>
       <div className="mainDiv">
         <div className="formDiv">
@@ -50,7 +44,7 @@ export const LoginCard = () => {
             <input
               className="inputSec"
               placeholder="Password"
-              type="text"
+              type="password"
               value={pass}
               onChange={e => setPass(e.target.value)}
             />
@@ -63,11 +57,12 @@ export const LoginCard = () => {
             />
           </form>
           <div className="textsugestion">
-            Don't have an account yet? <a href="">Sing up to Twitter!</a>
+            Don't have an account yet? <Link to='/register'>Sing up to Twitter!</Link>
           </div>
         </div>
         {errMess ? <div className='errMess'>Incorrect email or password</div> : null}
       </div>
     </CardStyle>
+    : <Navigate to='/'/>
   );
 };

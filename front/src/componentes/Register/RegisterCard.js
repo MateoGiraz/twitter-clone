@@ -2,11 +2,12 @@ import { CardStyle } from "./styled"
 import TwitterIcon from '@mui/icons-material/Twitter';
 import {useState} from 'react'
 import { handlePostRegister } from "./postRegister";
+import { Link, Navigate } from "react-router-dom";
 
 export const RegisterCard = () => {
 
   const handleSubmit = () => {
-    handlePostRegister(name, lname, email, pass, user)
+    handlePostRegister(name, lname, email, pass, user, setSuccessLog)
     setName('')
     setLname('')
     setEmail('')
@@ -19,8 +20,10 @@ export const RegisterCard = () => {
   const [lname, setLname] = useState('')
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
+  const [successLog, setSuccessLog] = useState(false)
 
   return(
+    !successLog ?
     <CardStyle>
     <div className = "mainDiv">
       <div className="formDiv">
@@ -65,10 +68,11 @@ export const RegisterCard = () => {
           onClick={handleSubmit}/>
         </form>
         <div className="textsugestion">
-        Already have an acount? <a className="ref">Log in to Twitter!</a>
+        Already have an acount? <Link to='/login'>Log in to Twitter!</Link>
         </div>
       </div>
     </div>
     </CardStyle>
+    : <Navigate to='/login'/>
   )
 }

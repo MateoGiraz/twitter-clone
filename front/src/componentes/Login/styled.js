@@ -107,16 +107,17 @@ export const CardStyle = styled.div`
   bottom: 130px;
   background: white;
   border-radius: 5px;
-  font-size: 12px;
-  padding: 5px;
-  width: 200px;
-  height: 20px;
+  font-size: 13px;
+  padding: 10px;
+  padding-top: 15px;
+  width: 225px;
+  height: 30px;
   color: black;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
   font-family: "Arial black";
-  font-weight: light;
+  font-weight: 200;
 }
 
 @media only screen and (max-width: 500px) {

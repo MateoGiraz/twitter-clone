@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { validateUser } from "./validate";
 
-export const handlePostRegister = (name, lname, email, pass, username) => {
+export const handlePostRegister = (name, lname, email, pass, username, setSuccessLog) => {
   const user = {
     'name': name,
     'username': username,
@@ -12,9 +12,16 @@ export const handlePostRegister = (name, lname, email, pass, username) => {
     'lname': lname
   }
 
-  if(!validateUser(user)) return
+  if(!validateUser(user)) setSuccessLog(false)
 
   axios.post('http://localhost:2000/users', user)
-  .then(e => console.log(e))
-  .catch(e => {console.log(e)})
+  .then(e => {
+    console.log(e)
+    setSuccessLog(true)
+  })
+  .catch(e => {
+    console.log(e)
+    setSuccessLog(false)
+  })
+
 }
