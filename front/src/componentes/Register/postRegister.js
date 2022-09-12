@@ -1,20 +1,18 @@
 import axios from 'axios'
-import { validateUser } from "./validate";
 
-export const handlePostRegister = (name, lname, email, pass, username, setSuccessLog) => {
-  const user = {
+export const handlePostRegister = ({name, lname, email, pass, user}, setSuccessLog) => {
+  
+  const newUser = {
     'name': name,
-    'username': username,
+    'username': user,
     'photo': 'photo',
     'isAdmin': false,
     'email': email,
     'pass': pass,
     'lname': lname
   }
-
-  if(!validateUser(user)) setSuccessLog(false)
-
-  axios.post('http://localhost:2000/users', user)
+  
+  axios.post('http://localhost:2000/users', newUser)
   .then(e => {
     console.log(e)
     setSuccessLog(true)

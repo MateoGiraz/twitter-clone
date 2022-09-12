@@ -102,6 +102,24 @@ export const CardStyle = styled.div`
 
 }
 
+.errMess{
+  position: fixed;
+  bottom: 130px;
+  background: white;
+  border-radius: 5px;
+  font-size: 13px;
+  padding: 10px;
+  padding-top: 15px;
+  width: 225px;
+  height: 30px;
+  color: black;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-family: "Arial black";
+  font-weight: 200;
+}
+
 @media only screen and (max-width: 500px) {
   .mainDiv{
     position: fixed;
