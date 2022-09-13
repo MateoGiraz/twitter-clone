@@ -1,30 +1,23 @@
 import { CardStyle } from "./styled";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { useState } from "react";
-import { handleLogIn } from "./LoginHandle";
-import { useEffect } from "react";
+import { LoginHandle } from "./LoginHandle";
 import { Navigate, Link } from "react-router-dom";
+import useFalser from "../../utils/useFalser";
 
 export const LoginCard = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [pass, setPass] = useState('');
   const [errMess, setErrMess] = useState()
   const [logged, setLogged] = useState(false)
-
+  useFalser(errMess, setErrMess)
+  
   const handler = () => {
-    handleLogIn(email, pass, setErrMess, setLogged)
-    setEmail('')
+    LoginHandle(username, pass, setErrMess, setLogged)
+    setUsername('')
     setPass('')
   }
 
-  useEffect(() => { 
-    if(errMess){
-      setTimeout(() => {
-        setErrMess(false)
-      }, 3000)
-    }  
-  })
- 
   return (
     !logged ?
     <CardStyle>
@@ -35,10 +28,10 @@ export const LoginCard = () => {
           <form>
             <input
               className="inputSec"
-              placeholder="Email"
+              placeholder="User"
               type="text"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
+              value={username}
+              onChange={e => setUsername(e.target.value)}
             />
             <br/>
             <input

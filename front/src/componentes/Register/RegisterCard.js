@@ -1,10 +1,10 @@
 import { CardStyle } from "./styled";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { useState } from "react";
-import { handlePostRegister } from "./postRegister";
+import { HandlePostRegister } from "./postRegister";
 import { Link, Navigate } from "react-router-dom";
 import { validate } from "./validate";
-import useFalser from "./useFalser";
+import useFalser from "../../utils/useFalser";
 
 const initialValues = { user: "", name: "", lname: "", email: "", pass: "" };
 
@@ -20,7 +20,7 @@ export const RegisterCard = () => {
     setIsSubmit(true);
     setFormErr(validate(formValues));
     if (Object.keys(formErr).length === 0) {
-      handlePostRegister(formValues, setSuccessLog);
+      HandlePostRegister(formValues, setSuccessLog);
       setFormValues(initialValues);
     }
   };

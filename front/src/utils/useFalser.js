@@ -1,13 +1,13 @@
 import { useEffect } from "react"
 
-function useFalser(isSubmit, setIsSubmit){
+function useFalser(value, setValue){
   useEffect(() => {
-    if(isSubmit){
+    if(value){
       setTimeout(() => {
-        setIsSubmit(false)
+        setValue(false)
       }, 3000)
     }
-  }, [isSubmit])
+  }, [value])
 }
 
 export default useFalser

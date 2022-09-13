@@ -1,7 +1,9 @@
 import axios from 'axios'
+import { UserContext } from '../../UserContext';
+import { useContext } from 'react';
 
-export const handlePostRegister = ({name, lname, email, pass, user}, setSuccessLog) => {
-  
+export const HandlePostRegister = ({name, lname, email, pass, user}, setSuccessLog) => {
+
   const newUser = {
     'name': name,
     'username': user,
@@ -14,7 +16,6 @@ export const handlePostRegister = ({name, lname, email, pass, user}, setSuccessL
   
   axios.post('http://localhost:2000/users', newUser)
   .then(e => {
-    console.log(e)
     setSuccessLog(true)
   })
   .catch(e => {
