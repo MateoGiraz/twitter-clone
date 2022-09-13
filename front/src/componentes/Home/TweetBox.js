@@ -2,7 +2,7 @@ import React from 'react'
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import GifIcon from '@mui/icons-material/Gif';
 import { TweetBoxStyle, Form, Div, Avatar, DivBox, File } from './styled'
-import { Button } from '@material-ui/core'
+import { Button } from '@mui/material';
 
 export const TweetBox = ({tweets, setTweets}) => {
 

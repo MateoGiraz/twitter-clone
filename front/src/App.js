@@ -1,3 +1,5 @@
+//grafo de seguimiento
+
 import { useState } from 'react';
 import {Route, BrowserRouter, Routes} from "react-router-dom"
 import MainPage from './componentes/MainPage';

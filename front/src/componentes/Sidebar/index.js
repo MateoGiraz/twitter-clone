@@ -10,7 +10,7 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { Button } from '@material-ui/core'
+import { Button } from '@mui/material';
 
 export const Sidebar = () => {
   return (
