@@ -16,19 +16,19 @@ export const RegisterCard = () => {
   useFalser(isSubmit, setIsSubmit);
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    setIsSubmit(true)
-    setFormErr(validate(formValues))
+    e.preventDefault();
+    setIsSubmit(true);
+    setFormErr(validate(formValues));
     if (Object.keys(formErr).length === 0) {
-      HandlePostRegister(formValues, setSuccessLog)
-      setFormValues(initialValues)
+      HandlePostRegister(formValues, setSuccessLog);
+      setFormValues(initialValues);
     }
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormValues({ ...formValues, [name]: value })
-    setFormErr(validate(formValues))
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+    setFormErr(validate(formValues));
   };
 
   return !successLog ? (
