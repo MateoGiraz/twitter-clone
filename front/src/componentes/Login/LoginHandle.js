@@ -13,7 +13,6 @@ export const LoginHandle = (username, pass, setErrMess, setLogged) => {
     else{
     setErrMess(false)
     setLogged(true)
-
     }
   })
 }

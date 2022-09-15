@@ -5,17 +5,22 @@ import { LoginHandle } from "./LoginHandle";
 import { Navigate, Link } from "react-router-dom";
 import useFalser from "../../utils/useFalser";
 
+const initialValues = { username: "", pass: "" }
+
 export const LoginCard = () => {
-  const [username, setUsername] = useState('');
-  const [pass, setPass] = useState('');
+  const [formValues, setFormValues] = useState(initialValues);
   const [errMess, setErrMess] = useState()
   const [logged, setLogged] = useState(false)
   useFalser(errMess, setErrMess)
-  
-  const handler = () => {
-    LoginHandle(username, pass, setErrMess, setLogged)
-    setUsername('')
-    setPass('')
+
+  const handler = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+  }
+
+  const handlerSubmit = () => {
+    LoginHandle(formValues.username, formValues.pass, setErrMess, setLogged)
+    setFormValues(initialValues)
   }
 
   return (
@@ -30,23 +35,25 @@ export const LoginCard = () => {
               className="inputSec"
               placeholder="User"
               type="text"
-              value={username}
-              onChange={e => setUsername(e.target.value)}
+              name="username"
+              value={formValues.username}
+              onChange={handler}
             />
             <br/>
             <input
               className="inputSec"
               placeholder="Password"
               type="password"
-              value={pass}
-              onChange={e => setPass(e.target.value)}
+              name="pass"
+              value={formValues.pass}
+              onChange={handler}
             />
             <br/>
             <input 
             className="inputSubmit" 
             type="button" 
             value="Log in" 
-            onClick={handler}
+            onClick={handlerSubmit}
             />
           </form>
           <div className="textsugestion">
@@ -56,6 +63,6 @@ export const LoginCard = () => {
         {errMess ? <div className='errMess'>Incorrect email or password</div> : null}
       </div>
     </CardStyle>
-    : <Navigate to='/'/>
+    : <Navigate to='/' />
   );
 };
