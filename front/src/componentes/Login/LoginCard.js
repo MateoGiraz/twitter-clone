@@ -4,8 +4,11 @@ import { useState } from "react";
 import { LoginHandle } from "./LoginHandle";
 import { Navigate, Link } from "react-router-dom";
 import useFalser from "../../utils/useFalser";
+import useUser from "../../context/userContext";
+
 
 const initialValues = { username: "", pass: "" }
+const {login} =useUser()
 
 export const LoginCard = () => {
   const [formValues, setFormValues] = useState(initialValues);

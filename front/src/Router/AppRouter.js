@@ -6,7 +6,7 @@ import { RegisterCard } from "../componentes/Register/RegisterCard"
 const AppRouter=()=>{
 
   return (
-    <Routes>
+        <Routes>
             <Route path="/" element = {<MainPage/>}/>
             <Route path="/register" element = {<RegisterCard/>}/>
             <Route path="/login" element = {<LoginCard/>}/>
