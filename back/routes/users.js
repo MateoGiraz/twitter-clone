@@ -3,6 +3,7 @@ import asyncMiddleware from '../middleware/async.js'
 import isAdmin from '../middleware/isAdmin.js'
 import User from '../models/user.js'
 import { validateUser } from '../models/user.js'
+import bcrypt  from 'bcrypt'
 
 const userRouter = Router()
 
@@ -30,9 +31,13 @@ userRouter.get(
 userRouter.post(
   '/',
   asyncMiddleware(async (req, res) => {
+
     const { error } = validateUser(req.body)
     if(error) return res.status(400).send(error)
-  
+
+    const toCheckUser = await User.findOne({ username: req.body.username })
+    if(toCheckUser) return res.status(400).send('User already registred')
+
     const {username, name, photo, isAdmin, email, lname, pass} = req.body
   
     const user = new User({
@@ -42,11 +47,20 @@ userRouter.post(
       isAdmin: isAdmin,
       email: email,
       lname: lname,
-      pass: pass
+      pass: 'notHashedYet'
     })
 
-    const result = await user.save()
-    res.send(result)
+    const salt = await bcrypt.genSalt(10)
+    const hashed = await bcrypt.hash(pass, salt)
+    user.pass = hashed
+
+    await user.save()
+
+    res.send({
+      username: username,
+      email: email
+    })
+
   })
 )
 
