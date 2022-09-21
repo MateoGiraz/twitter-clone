@@ -28,11 +28,12 @@ tweetRouter.post(
     const { error } = validateTweet(req.body)
     if(error) return res.status(400).send(error)
 
-    const {data, image} = req.body
+    const {data, image, user} = req.body
 
-    const tweet = new User({
+    const tweet = new Tweet({
       data: data,
-      image: image
+      image: image,
+      user: user
     })
 
     const result = await tweet.save()

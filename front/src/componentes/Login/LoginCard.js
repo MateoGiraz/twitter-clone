@@ -8,7 +8,7 @@ import './LoginCard.css'
 const initialValues = { username: "", pass: "" }
 
 export const LoginCard = () => {
-  const {login,currentUser} =useUser()
+  const {login,currentUser} = useUser()
   const [formValues, setFormValues] = useState(initialValues);
   const [errMess, setErrMess] = useState()
 
@@ -23,7 +23,6 @@ export const LoginCard = () => {
       setErrMess(false)
       setFormValues(initialValues)
       alert("correctly loged")
-      return <Navigate to='/'/>
     })
     .catch(e=>{
       setErrMess(true)

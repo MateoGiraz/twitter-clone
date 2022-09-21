@@ -1,6 +1,6 @@
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { useState } from "react";
-import { Link} from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { validate } from "../../utils/validate";
 import useUser from "../../context/userContext";
 import './RegisterCard.css'
@@ -10,6 +10,7 @@ const initialValues = { user: "", name: "", lname: "", email: "", pass: "" };
 export const RegisterCard = () => {
   
   const {register} = useUser()
+  const [succesRegister, setSuccesRegister] = useState(false)
   const [err, setErr] = useState({});
   const [formValues, setFormValues] = useState(initialValues);
 
@@ -17,12 +18,13 @@ export const RegisterCard = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const resValidate=validate(formValues)
-    setErr(resValidate);
+    setErr(resValidate)
     if (Object.keys(resValidate).length === 0) {
       register(formValues)
       .then(()=>{
         alert('registered correctly')
         setFormValues(initialValues)
+        setSuccesRegister(true)
       })
       .catch(e=>setErr(e)) 
     }
@@ -35,7 +37,7 @@ export const RegisterCard = () => {
   };
 
   return  (
-      <div className="mainDiv">
+      !succesRegister ? <div className="mainDiv">
         <div className="formDiv">
           <TwitterIcon className="twitter-icon" />
           <div className="text">Join Twitter today.</div>
@@ -94,5 +96,6 @@ export const RegisterCard = () => {
         {Object.keys(err).length !== 0  && (
           <div className="errMess">{Object.values(err)[0]}</div>)}
       </div>
+      : <Navigate to = '/login'/>
   )
 };
