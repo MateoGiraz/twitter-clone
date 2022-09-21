@@ -4,6 +4,7 @@ import User from '../models/user.js'
 import bcrypt  from 'bcrypt'
 import Joi from 'joi'
 
+
 const authRouter = Router()
 
 authRouter.post(
@@ -21,7 +22,8 @@ authRouter.post(
     const isValid = await bcrypt.compare(pass, toCheckUser.pass)
     if(!isValid) return res.status(400).send('Invalid email or password')
 
-    res.send(toCheckUser)
+    const token = toCheckUser.genereteAuthToken()
+    res.send(token)
 
   })
 )

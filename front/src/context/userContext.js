@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useContext ,useEffect,useState} from "react";
+import jwt_decode from 'jwt-decode'
 
 const UserContext = createContext()
 const useUser=()=> useContext(UserContext)
@@ -22,8 +23,10 @@ export const UserProvider=({children})=>{
     return new Promise((res,rej)=>{
       axios.post(`http://localhost:2000/api/auth`, data)
       .then(e => {
-        setCurrentUser(e.data)
+        const decoded = jwt_decode(e.data)
+        setCurrentUser(decoded)
         res()
+        localStorage.setItem("jwt-token", e.data)
         localStorage.setItem("username", username)
         localStorage.setItem("pass", pass)
       })

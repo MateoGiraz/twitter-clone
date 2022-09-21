@@ -4,10 +4,16 @@ import userRouter from './routes/users.js'
 import tweetRouter from './routes/tweets.js'
 import auth from './routes/auth.js'
 import cors from 'cors'
+import config from 'config'
 
 const app = express()
 app.use(cors())
 app.use(express.json())
+
+if(!config.get('jwtPrivateKey')){
+  console.log('FATAL ERROR - jwtPrivateKey not set')
+  process.exit(1)
+}
 
 app.use('/users', userRouter)
 app.use('/tweets', tweetRouter)
