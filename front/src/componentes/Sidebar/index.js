@@ -12,7 +12,7 @@ import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Button } from '@mui/material';
 
-export const Sidebar = () => {
+export const Sidebar = ({logout}) => {
   return (
     <Contenedor>
         <TwitterIcon className='twitter-icon'/>
@@ -23,6 +23,7 @@ export const Sidebar = () => {
         <IconOption secondary='true' Icon={BookmarkBorderIcon} text='Bookmarks'/>  
         <IconOption secondary='true' Icon={ListAltIcon} text='Lists'/>  
         <IconOption secondary='true' Icon={PermIdentityIcon} text='Profile'/>  
+        <IconOption secondary='true' Icon={MoreHorizIcon} text='Logout' func={logout}/>
         <IconOption secondary='true' Icon={MoreHorizIcon} text='More'/>
         <Button variant='outlined' fullWidth >Tweet</Button>
     </Contenedor>

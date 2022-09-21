@@ -1,5 +1,5 @@
     import React from 'react'
-    import { PostStyle, Avatar, PostBodyStyle, PostFooter, PostDescription, Images } from './styled'
+    import { PostStyle, Avatar, PostBodyStyle, PostFooter,Images } from './styled'
     import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
     import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
     import RepeatIcon from '@mui/icons-material/Repeat';
@@ -7,7 +7,8 @@
     import PublishIcon from '@mui/icons-material/Publish';  
 
 
-    export const Post = ({message, user}) => {
+export const Post = ({message, user}) => {
+    console.log(user)
     return (
         <PostStyle>
             <div className="post-avatar">
@@ -18,9 +19,9 @@
             <PostBodyStyle>
                 <div>
                     <div>
-                        <h3>{user}
+                        <h3>
                             <span> <VerifiedUserIcon className='post-icon'></VerifiedUserIcon> 
-                            @mategzoficial </span></h3>
+                            {user.username}</span></h3>
                             <p className='post-description'> {message} </p>
                     </div>
                     <Images>
@@ -36,5 +37,5 @@
             </PostBodyStyle>
         </PostStyle>
     )
-    }
+}
 

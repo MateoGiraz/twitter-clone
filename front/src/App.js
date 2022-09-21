@@ -1,14 +1,16 @@
 import {BrowserRouter} from "react-router-dom"
-import AppRouter from './Router/AppRouter';
+import AppRouter from './routes/AppRouter';
+import {UserProvider} from './context/userContext'
 
 function App() {
+
   return (
     <div className="App">
-      <userProvider>
+      <UserProvider>
         <BrowserRouter>
           <AppRouter/>
         </BrowserRouter>
-      </userProvider>  
+      </UserProvider>  
     </div>
   ); 
 }

@@ -1,16 +1,19 @@
 import axios from "axios";
-import { createContext, useContext ,useState} from "react";
+import { createContext, useContext ,useEffect,useState} from "react";
 
 const UserContext = createContext()
-
 const useUser=()=> useContext(UserContext)
 
-export const userProvider=({children})=>{
+export const UserProvider=({children})=>{
   const [currentUser,setCurrentUser]=useState()
-  const [loading,setLoading]=useState(true)
- 
 
-  const login = (username,password)=>{
+  useEffect(()=>{
+    const username = localStorage.getItem("username")
+    const pass = localStorage.getItem("pass")
+    login(username,pass)
+  },[])
+
+  const login = (username,pass)=>{
     return new Promise((res,rej)=>{
       axios.get(`http://localhost:2000/users`)
       .then(e => {
@@ -19,21 +22,40 @@ export const userProvider=({children})=>{
           res("Wrong username or password")
         }
         else {
-          currentUser=toCheckUser;
+          setCurrentUser(toCheckUser)
           res()
+          localStorage.setItem("username",username)
+          localStorage.setItem("pass",pass)
         }
       })
-      .catch(e=>res(e))
+      .catch(e=>rej(e))
     })
   }
   const logout=()=>{
-    
-    
+    setCurrentUser(null)  
+    localStorage.clear()
+  }
+  const register=(data)=>{
+    const {name, lname, email, pass, user} = data
+    const newUser = {
+      'name': name,
+      'username': user,
+      'photo': 'photo',
+      'isAdmin': false,
+      'email': email,
+      'pass': pass,
+      'lname': lname
+    }
+    return new Promise((res,rej)=>{
+      axios.post('http://localhost:2000/users', newUser)
+      .then(()=>res())
+      .catch(e=>res(e))
+    })
   }
 
-
-
   const data={
+    currentUser,
+    register,
     login,
     logout
   }
