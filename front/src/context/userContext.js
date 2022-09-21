@@ -6,11 +6,14 @@ const useUser=()=> useContext(UserContext)
 
 export const UserProvider=({children})=>{
   const [currentUser,setCurrentUser]=useState()
+  const [loading,setLoading]=useState(true)
+
 
   useEffect(()=>{
     const username = localStorage.getItem("username")
     const pass = localStorage.getItem("pass")
     login(username,pass)
+    .finally(()=>setLoading(false))
   },[])
 
   const login = (username,pass)=>{
@@ -62,7 +65,7 @@ export const UserProvider=({children})=>{
 
   return (
     <UserContext.Provider value={data}>
-      {children}
+      {!loading && children}
     </UserContext.Provider>)
 
 }
