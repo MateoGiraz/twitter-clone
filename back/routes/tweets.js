@@ -2,7 +2,7 @@ import { Router } from 'express'
 import Tweet from '../models/tweet.js'
 import asyncMiddleware from '../middleware/async.js'
 import { validateTweet } from '../models/tweet.js'
-import isAdmin from '../middleware/isAdmin.js'
+import User from '../models/user.js'
 
 const tweetRouter = Router()
 
@@ -15,9 +15,9 @@ tweetRouter.get(
 )
 
 tweetRouter.get(
-  '/:id',
+  '/:username',
   asyncMiddleware(async (req, res) => {
-    const tweets = await Tweet.find({_id: req.params.id})
+    const tweets = await Tweet.find({ username: req.params.username})
     res.send(tweets)
   })
 )
@@ -29,6 +29,9 @@ tweetRouter.post(
     if(error) return res.status(400).send(error)
 
     const {data, image, user} = req.body
+
+    const toCheckUser = await User.findOne({ username: user })
+    if (!toCheckUser) return res.status(400).send('User not registred')
 
     const tweet = new Tweet({
       data: data,

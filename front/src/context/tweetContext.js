@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext } from 'react'
 import useUser from './userContext'
 
 const TweetContext = createContext()
@@ -12,7 +12,7 @@ export const TweetProvider = ({ children }) => {
     const newTweet = {
       data,
       image,
-      user: currentUser,
+      user: currentUser.username
     }
     return new Promise((res, rej) => {
       axios
@@ -20,6 +20,7 @@ export const TweetProvider = ({ children }) => {
         .then(() => res())
         .catch((e) => res(e))
     })
+
   }
 
   const getTweets = () => {
@@ -27,19 +28,40 @@ export const TweetProvider = ({ children }) => {
       axios
         .get(`http://localhost:2000/tweets`)
         .then((e) => res(e))
-        .catch((e) => res(e))
+        .catch((e) => rej(e))
     })
   }
 
-  const getTweetsByUser = () => {}
-
-  const toExport = {
-    postTweet,
-    getTweets,
+  const getTweetsByUser = (username) => {
+    return new Promise((res, rej) => {
+      axios
+        .get(`http://localhost:2000/tweets/${username}`)
+        .then((e) => res(e))
+        .catch((e) => rej(e))
+    })
   }
 
+  const deleteTweet = (id) => {
+    return new Promise((res, rej) => {
+      axios
+        .delete(`http://localhost:2000/tweets/${id}`)
+        .then((e) => res(e))
+        .catch((e) => rej(e))
+    })
+  }
+
+  const data = {
+    postTweet,
+    getTweets,
+    getTweetsByUser,
+    deleteTweet
+  }
+
+
   return (
-    <TweetContext.Provider value={toExport}>{children}</TweetContext.Provider>
+    <TweetContext.Provider value={data}>
+      {children}
+    </TweetContext.Provider>
   )
 }
 
