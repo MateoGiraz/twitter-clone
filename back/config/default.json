@@ -1,3 +1,4 @@
 {
-  "jwtPrivateKey" : "gjghjghjghgfjh"
+  "jwtPrivateKey" : "gjghjghjghgfjh",
+  "dbPassword" : "clone-admin"
 }
