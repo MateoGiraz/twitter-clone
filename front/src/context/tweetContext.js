@@ -22,7 +22,6 @@ export const TweetProvider = ({ children }) => {
     })
 
   }
-
   const getTweets = () => {
     return new Promise((res, rej) => {
       axios
@@ -56,7 +55,6 @@ export const TweetProvider = ({ children }) => {
     getTweetsByUser,
     deleteTweet
   }
-
 
   return (
     <TweetContext.Provider value={data}>

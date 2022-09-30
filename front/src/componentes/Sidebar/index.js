@@ -24,7 +24,6 @@ export const Sidebar = ({logout}) => {
         <IconOption secondary='true' Icon={ListAltIcon} text='Lists'/>  
         <IconOption secondary='true' Icon={PermIdentityIcon} text='Profile'/>  
         <IconOption secondary='true' Icon={MoreHorizIcon} text='Logout' func={logout}/>
-        <IconOption secondary='true' Icon={MoreHorizIcon} text='More'/>
         <Button variant='outlined' fullWidth >Tweet</Button>
     </Contenedor>
   )
