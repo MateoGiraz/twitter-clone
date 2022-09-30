@@ -26,12 +26,15 @@ tweetRouter.post(
   '/',
   asyncMiddleware(async (req, res) => {
     const { error } = validateTweet(req.body)
+    console.log(error)
     if(error) return res.status(400).send(error)
 
     const {data, image, user} = req.body
 
-    const toCheckUser = await User.findOne({ username: user })
+    const toCheckUser = await User.findOne({ username:user})
+    console.log('got here')
     if (!toCheckUser) return res.status(400).send('User not registred')
+    console.log('skiped send error')
 
     const tweet = new Tweet({
       data: data,

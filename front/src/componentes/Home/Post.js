@@ -7,13 +7,12 @@
     import PublishIcon from '@mui/icons-material/Publish';  
 
 
-export const Post = ({message, user}) => {
-    console.log(user)
+export const Post = ({message, username,img}) => {
     return (
         <PostStyle>
             <div className="post-avatar">
                 <Avatar>
-                    <img  src='https://randomuser.me/api/portraits/men/89.jpg' alt='not found'></img>
+                    <img  src={img} alt='not found'></img>
                 </Avatar>
             </div>
             <PostBodyStyle>
@@ -21,7 +20,7 @@ export const Post = ({message, user}) => {
                     <div>
                         <h3>
                             <span> <VerifiedUserIcon className='post-icon'></VerifiedUserIcon> 
-                            {user.username}</span></h3>
+                            {username}</span></h3>
                             <p className='post-description'> {message} </p>
                     </div>
                     <Images>

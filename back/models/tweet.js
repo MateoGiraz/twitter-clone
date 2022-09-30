@@ -20,9 +20,9 @@ const Tweet = mongoose.model('Tweet', tweetSchema)
 
 export const validateTweet = (tweet) => {
   const JoiSchema = new Joi.object({
-    data: Joi.string().min(5).max(200).required(),
+    data: Joi.string().min(1).max(200).required(),
     image: Joi.string(),
-    user: Joi.string().min(5).required(),
+    user: Joi.string().min(5).required()
   })
   return JoiSchema.validate(tweet)
 }

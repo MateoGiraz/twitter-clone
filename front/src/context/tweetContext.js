@@ -1,22 +1,19 @@
-import axios from 'axios'
+ import axios from 'axios'
 import { createContext, useContext } from 'react'
-import useUser from './userContext'
 
 const TweetContext = createContext()
 const useTweet = () => useContext(TweetContext)
 
 export const TweetProvider = ({ children }) => {
-  const { currentUser } = useUser()
-
-  const postTweet = ({ data, image }) => {
+  const postTweet = ({ data, image,user }) => {
     const newTweet = {
       data,
-      image,
-      user: currentUser.username
+      image: image || 'https://i.stack.imgur.com/l60Hf.png',
+      user: user.username
     }
     return new Promise((res, rej) => {
       axios
-        .post(`http://localhost:2000/users`, newTweet)
+        .post(`http://localhost:2000/tweets`, newTweet)
         .then(() => res())
         .catch((e) => res(e))
     })
@@ -26,7 +23,7 @@ export const TweetProvider = ({ children }) => {
     return new Promise((res, rej) => {
       axios
         .get(`http://localhost:2000/tweets`)
-        .then((e) => res(e))
+        .then((response) => res(response.data))
         .catch((e) => rej(e))
     })
   }
