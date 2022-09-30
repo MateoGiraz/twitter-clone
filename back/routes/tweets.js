@@ -9,7 +9,7 @@ const tweetRouter = Router()
 tweetRouter.get(
   '/',
   asyncMiddleware(async (req, res) => {
-    const tweets = await Tweet.find()
+    const tweets = await Tweet.find().sort('-_id')
     res.send(tweets)
   })
 )

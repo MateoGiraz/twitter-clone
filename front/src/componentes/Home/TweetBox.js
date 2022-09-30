@@ -4,7 +4,7 @@ import GifIcon from '@mui/icons-material/Gif';
 import { TweetBoxStyle, Form, Div, Avatar, DivBox, File } from './styled'
 import { Button } from '@mui/material';
 
-export const TweetBox = ({saveTweet}) => {
+export const TweetBox = ({saveTweet, postTweet, setTweets, tweets, currentUser}) => {
 
 const [message, setMessage] = useState('')
 const [gif, setGif] = useState('')
@@ -37,7 +37,7 @@ const [gif, setGif] = useState('')
                     placeholder='Optional: gif/image´s url'
                     onChange={(event)=> setGif(event.target.value)}
                     />
-                    <Button onClick={()=>saveTweet(message,gif)}>Tweet</Button>
+                    <Button onClick={()=> saveTweet(message, gif, postTweet, setTweets, tweets, currentUser)}>Tweet</Button>
                 </Div>
             </Form>
         </TweetBoxStyle>

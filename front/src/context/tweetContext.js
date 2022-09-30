@@ -14,7 +14,7 @@ export const TweetProvider = ({ children }) => {
     return new Promise((res, rej) => {
       axios
         .post(`http://localhost:2000/tweets`, newTweet)
-        .then(() => res())
+        .then(() => res(newTweet))
         .catch((e) => res(e))
     })
 
