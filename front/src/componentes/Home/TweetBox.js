@@ -4,7 +4,7 @@ import GifIcon from '@mui/icons-material/Gif';
 import { TweetBoxStyle, Form, Div, Avatar, DivBox, File } from './styled'
 import { Button } from '@mui/material';
 
-export const TweetBox = ({saveTweet}) => {
+export const TweetBox = ({saveTweet, handleFileInput}) => {
 
 const [message, setMessage] = useState('')
 const [gif, setGif] = useState('')
@@ -28,9 +28,11 @@ const [gif, setGif] = useState('')
                 <Div>
                     <DivBox>
                         <AddPhotoAlternateIcon/>
-                        <File type='file' secondary className='onHover'/>
-                        <GifIcon/>
-                        <File type='file' primary className='onHover'/>
+                        <File 
+                        type='file' 
+                        secondary className='onHover'
+                        onChange={e => handleFileInput(e)}
+                        />
                     </DivBox>
                     <input
                     type='text'
