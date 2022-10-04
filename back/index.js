@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import userRouter from './routes/users.js'
 import tweetRouter from './routes/tweets.js'
+import uploadRouter from './routes/upload.js'
 import auth from './routes/auth.js'
 import cors from 'cors'
 import config from 'config'
@@ -25,6 +26,7 @@ if(!config.get('dbPassword')){
 app.use('/users', userRouter)
 app.use('/tweets', tweetRouter)
 app.use('/api/auth', auth)
+app.use('/api/upload', uploadRouter)
 
 mongoose
 .connect(dbURL)

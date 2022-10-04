@@ -8,8 +8,8 @@ import { useState } from "react";
 
 export const Home = () => {
   const {currentUser} = useUser()
-  const {postTweet, getTweets} = useTweet()
-  const [uploaded, setUploaded] = useState(null)
+  const {postTweet, getTweets, uploadImage} = useTweet()
+  const [upload, setUpload] = useState(null)
   const [refresh, setRefresh] = useState(false)
   const {loading, error, data} = useData(getTweets, [refresh])
 
@@ -17,11 +17,15 @@ export const Home = () => {
   if(loading) return <h2>Loading...</h2>
 
   const saveTweet = async (message) => {
-    
+
+    const formData = new FormData()
+    formData.append('image', upload)
+
     const image = currentUser.image
     if(currentUser){
-      const newTweet = {data:message, user:currentUser, image, uploaded}
+      const newTweet = {data:message, user:currentUser, image}
       postTweet(newTweet)
+      .then(() => uploadImage(formData))
       .then(()=> setRefresh(!refresh))
       .catch(e => console.log(e))
     }
@@ -33,7 +37,7 @@ export const Home = () => {
   
     if(currentUser){
       const inputFile = e.target.files[0]
-      setUploaded(inputFile)
+      setUpload(inputFile)
     }
     else alert("Please Login to tweet")
   

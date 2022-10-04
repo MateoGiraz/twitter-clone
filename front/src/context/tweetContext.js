@@ -5,11 +5,10 @@ const TweetContext = createContext()
 const useTweet = () => useContext(TweetContext)
 
 export const TweetProvider = ({ children }) => {
-  const postTweet = ({ data, user, uploaded, image }) => {
+  const postTweet = ({ data, user, image }) => {
     const newTweet = {
       data,
       image: image || 'https://i.stack.imgur.com/l60Hf.png',
-      uploadedFile: uploaded,
       user: user.username
     }
     return new Promise((res, rej) => {
@@ -20,6 +19,16 @@ export const TweetProvider = ({ children }) => {
     })
 
   }
+
+  const uploadImage = (formData) => {
+    return new Promise((res, rej) => {
+      axios
+      .post(`http://localhost:2000/api/upload`, formData)
+      .then(() => res.send(formData.get('image')))
+      .catch(e => res(e))
+    })
+  }
+
   const getTweets = () => {
     return new Promise((res, rej) => {
       axios
@@ -51,7 +60,8 @@ export const TweetProvider = ({ children }) => {
     postTweet,
     getTweets,
     getTweetsByUser,
-    deleteTweet
+    deleteTweet,
+    uploadImage
   }
 
   return (
