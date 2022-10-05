@@ -5,11 +5,12 @@ const TweetContext = createContext()
 const useTweet = () => useContext(TweetContext)
 
 export const TweetProvider = ({ children }) => {
-  const postTweet = ({ data, user, image }) => {
+  const postTweet = ({ data, user, image, tweetCode }) => {
     const newTweet = {
       data,
       image: image || 'https://i.stack.imgur.com/l60Hf.png',
-      user: user.username
+      user: user.username,
+      code: tweetCode
     }
     return new Promise((res, rej) => {
       axios

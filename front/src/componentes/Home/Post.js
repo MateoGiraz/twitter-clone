@@ -7,7 +7,7 @@
     import PublishIcon from '@mui/icons-material/Publish';  
 
 
-export const Post = ({message, username,img}) => {
+export const Post = ({message, username, img, file}) => {
     return (
         <PostStyle>
             <div className="post-avatar">
@@ -24,7 +24,7 @@ export const Post = ({message, username,img}) => {
                             <p className='post-description'> {message} </p>
                     </div>
                     <Images>
-                        <img src='http://i.stack.imgur.com/SBv4T.gif' alt='not found'></img>
+                        <img src={file} alt='not found'></img>
                         <PostFooter>
                             <ChatBubbleOutlineIcon fontSize='small'/>
                             <RepeatIcon fontSize='small'/>

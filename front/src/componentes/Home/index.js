@@ -5,6 +5,7 @@ import useTweet from "../../context/tweetContext";
 import useData from "../../utils/useData.js";
 import useUser from '../../context/userContext'
 import { useState } from "react";
+import cryptoRandomString from 'crypto-random-string';
 
 export const Home = () => {
   const {currentUser} = useUser()
@@ -15,21 +16,28 @@ export const Home = () => {
 
   if(error) return <h2>An error happend</h2>
   if(loading) return <h2>Loading...</h2>
+  
+  const randomCode = () => cryptoRandomString({length: 30})
 
   const saveTweet = async (message) => {
+    const tweetCode = randomCode()
 
     const formData = new FormData()
     formData.append('image', upload)
+    formData.append('code', tweetCode)
 
     const image = currentUser.image
-    if(currentUser){
-      const newTweet = {data:message, user:currentUser, image}
-      postTweet(newTweet)
-      .then(() => uploadImage(formData))
-      .then(()=> setRefresh(!refresh))
-      .catch(e => console.log(e))
+    if(!currentUser){
+      alert("Please Login to tweet")
+      return
     }
-    else alert("Please Login to tweet")
+    
+    const newTweet = {data:message, user:currentUser, image, tweetCode}
+    postTweet(newTweet)
+    .then(() => uploadImage(formData))
+    .then(()=> setRefresh(!refresh))
+    .catch(e => console.log(e))
+    
   
   }
 

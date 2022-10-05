@@ -3,6 +3,16 @@ import Tweet from '../models/tweet.js'
 import asyncMiddleware from '../middleware/async.js'
 import { validateTweet } from '../models/tweet.js'
 import User from '../models/user.js'
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import dotenv from 'dotenv'
+
+dotenv.config()
+
+const bucketRegion = process.env.S3_BUCKET_REGION
+const bucketName = process.env.S3_BUCKET_NAME
+
+const s3 = new S3Client({ region: bucketRegion })
 
 const tweetRouter = Router()
 
@@ -10,6 +20,18 @@ tweetRouter.get(
   '/',
   asyncMiddleware(async (req, res) => {
     const tweets = await Tweet.find().sort('-_id')
+
+   for(const tweet of tweets){
+    const getObjectParams = {
+      Bucket: bucketName,
+      Key: tweet.code,
+    }
+    const command = new GetObjectCommand(getObjectParams)
+    const url = await getSignedUrl(s3, command, { expiresIn: 3600 })
+    tweet.set({file: url})
+    await tweet.save()
+   }   
+
     res.send(tweets)
   })
 )
@@ -29,17 +51,17 @@ tweetRouter.post(
     console.log(error)
     if(error) return res.status(400).send(error)
 
-    const {data, image, user} = req.body
+    const {data, image, user, code} = req.body
 
     const toCheckUser = await User.findOne({ username:user})
-    console.log('got here')
     if (!toCheckUser) return res.status(400).send('User not registred')
-    console.log('skiped send error')
 
     const tweet = new Tweet({
       data: data,
       image: image,
-      user: user
+      user: user,
+      code: code,
+      file: 'default'
     })
 
     const result = await tweet.save()
