@@ -34,7 +34,9 @@ export const Home = () => {
     
     const newTweet = {data:message, user:currentUser, image, tweetCode}
     postTweet(newTweet)
-    .then(() => uploadImage(formData))
+    .then(() => {
+      if(upload) uploadImage(formData)
+    })
     .then(()=> setRefresh(!refresh))
     .catch(e => console.log(e))
     
