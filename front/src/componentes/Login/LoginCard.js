@@ -1,17 +1,16 @@
-import { CardStyle } from "./styled";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { useState } from "react";
-import { LoginHandle } from "./LoginHandle";
 import { Navigate, Link } from "react-router-dom";
-import useFalser from "../../utils/useFalser";
+import useUser from "../../context/userContext";
+import './LoginCard.css'
+
 
 const initialValues = { username: "", pass: "" }
 
 export const LoginCard = () => {
+  const {login,currentUser} = useUser()
   const [formValues, setFormValues] = useState(initialValues);
   const [errMess, setErrMess] = useState()
-  const [logged, setLogged] = useState(false)
-  useFalser(errMess, setErrMess)
 
   const handler = (e) => {
     const { name, value } = e.target;
@@ -19,13 +18,21 @@ export const LoginCard = () => {
   }
 
   const handlerSubmit = () => {
-    LoginHandle(formValues.username, formValues.pass, setErrMess, setLogged)
-    setFormValues(initialValues)
+    login(formValues.username, formValues.pass)
+    .then(()=>{
+      setErrMess(false)
+      setFormValues(initialValues)
+      alert("correctly loged")
+    })
+    .catch(e=>{
+      setErrMess(true)
+      console.log(e)
+    })
+    
   }
 
   return (
-    !logged ?
-    <CardStyle>
+    !currentUser ?
       <div className="mainDiv">
         <div className="formDiv">
           <TwitterIcon className="twitter-icon" />
@@ -60,9 +67,8 @@ export const LoginCard = () => {
             Don't have an account yet? <Link to='/register'>Sing up to Twitter!</Link>
           </div>
         </div>
-        {errMess ? <div className='errMess'>Incorrect email or password</div> : null}
+        {errMess && <div className='errMess'>Incorrect email or password</div>}
       </div>
-    </CardStyle>
     : <Navigate to='/' />
   );
 };

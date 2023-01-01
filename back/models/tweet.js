@@ -8,15 +8,31 @@ export const tweetSchema = new mongoose.Schema({
   },
   image: {
     type: String
+  },
+  user: {
+    type: String,
+    required: true
+  },
+  code:{
+    type: String,
+    required: true
+  },
+  file:{
+    type: String,
   }
+
+
 })
 
 const Tweet = mongoose.model('Tweet', tweetSchema)
 
 export const validateTweet = (tweet) => {
   const JoiSchema = new Joi.object({
-    data: Joi.string().min(5).max(200).required(),
-    image: Joi.string()
+    data: Joi.string().min(1).max(200).required(),
+    image: Joi.string(),
+    user: Joi.string().min(5).required(),
+    code: Joi.string(),
+    file: Joi.string()
   })
   return JoiSchema.validate(tweet)
 }

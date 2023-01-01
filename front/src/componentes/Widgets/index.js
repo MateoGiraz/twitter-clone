@@ -1,4 +1,3 @@
-import { Search } from '@mui/icons-material'
 import React from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 import {WidgetsStyle, Header, DivIcon, DivContent} from './styled'

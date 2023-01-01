@@ -1,22 +1,13 @@
-import React from 'react'
+import {useState} from 'react'
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import GifIcon from '@mui/icons-material/Gif';
 import { TweetBoxStyle, Form, Div, Avatar, DivBox, File } from './styled'
 import { Button } from '@mui/material';
 
-export const TweetBox = ({tweets, setTweets}) => {
+export const TweetBox = ({saveTweet, handleFileInput}) => {
 
-function EventHandler(){
-    const newTweet = [{message, user, gif}]
-    setTweets([...newTweet, ...tweets])
-    setMessage('')
-    setUser('')
-}
-
-const [message, setMessage] = React.useState('')
-const [user, setUser] = React.useState('')
-const [gif, setGif] = React.useState('')
-
+const [message, setMessage] = useState('')
+const [gif, setGif] = useState('')
 
     return (    
             <TweetBoxStyle>
@@ -32,27 +23,23 @@ const [gif, setGif] = React.useState('')
                         value={message}
                         onChange={e => setMessage(e.target.value)}
                         />
-                        <input className='in'
-                        type='text'
-                        placeholder='User'
-                        value={user}
-                        onChange={e => setUser(e.target.value)}
-                        />
                     </div>
                 </Div>
                 <Div>
                     <DivBox>
                         <AddPhotoAlternateIcon/>
-                        <File type='file' secondary className='onHover'/>
-                        <GifIcon/>
-                        <File type='file' primary className='onHover'/>
+                        <File 
+                        type='file' 
+                        secondary className='onHover'
+                        onChange={e => handleFileInput(e)}
+                        />
                     </DivBox>
                     <input
                     type='text'
                     placeholder='Optional: gif/image´s url'
                     onChange={(event)=> setGif(event.target.value)}
                     />
-                    <Button onClick={EventHandler}>Tweet</Button>
+                    <Button onClick={()=> saveTweet(message, gif)}>Tweet</Button>
                 </Div>
             </Form>
         </TweetBoxStyle>

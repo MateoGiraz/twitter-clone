@@ -1,39 +1,43 @@
-import { CardStyle } from "./styled";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { useState } from "react";
-import { HandlePostRegister } from "./postRegister";
 import { Link, Navigate } from "react-router-dom";
-import { validate } from "./validate";
-import useFalser from "../../utils/useFalser";
+import { validate } from "../../utils/validate";
+import useUser from "../../context/userContext";
+import './RegisterCard.css'
 
 const initialValues = { user: "", name: "", lname: "", email: "", pass: "" };
 
 export const RegisterCard = () => {
-  const [formErr, setFormErr] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
+  
+  const {register} = useUser()
+  const [succesRegister, setSuccesRegister] = useState(false)
+  const [err, setErr] = useState({});
   const [formValues, setFormValues] = useState(initialValues);
-  const [successLog, setSuccessLog] = useState(false);
-  useFalser(isSubmit, setIsSubmit);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmit(true);
-    setFormErr(validate(formValues));
-    if (Object.keys(formErr).length === 0) {
-      HandlePostRegister(formValues, setSuccessLog);
-      setFormValues(initialValues);
+    const resValidate=validate(formValues)
+    setErr(resValidate)
+    if (Object.keys(resValidate).length === 0) {
+      register(formValues)
+      .then(()=>{
+        alert('registered correctly')
+        setFormValues(initialValues)
+        setSuccesRegister(true)
+      })
+      .catch(e=>setErr(e)) 
     }
-  };
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
-    setFormErr(validate(formValues));
+    setErr(validate(formValues));
   };
 
-  return !successLog ? (
-    <CardStyle>
-      <div className="mainDiv">
+  return  (
+      !succesRegister ? <div className="mainDiv">
         <div className="formDiv">
           <TwitterIcon className="twitter-icon" />
           <div className="text">Join Twitter today.</div>
@@ -89,12 +93,9 @@ export const RegisterCard = () => {
             Already have an acount? <Link to="/login">Log in to Twitter!</Link>
           </div>
         </div>
-        {Object.keys(formErr).length !== 0 && isSubmit ? (
-          <div className="errMess">{Object.values(formErr)[0]}</div>
-        ) : null}
+        {Object.keys(err).length !== 0  && (
+          <div className="errMess">{Object.values(err)[0]}</div>)}
       </div>
-    </CardStyle>
-  ) : (
-    <Navigate to="/login" />
-  );
+      : <Navigate to = '/login'/>
+  )
 };
